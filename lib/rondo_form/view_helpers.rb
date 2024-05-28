@@ -51,7 +51,7 @@ module RondoForm
         html_options[:'data-associations'] = association.to_s.pluralize
         html_options[:'data-action'] = "click->nested-rondo#addField"
 
-        new_object = f.object.class.reflect_on_association(association).klass.new
+        new_object = f.object.send(association).build
         model_name = new_object.class.name.underscore
         hidden_div = content_tag("template", id: "#{model_name}_fields_template", data: {'nested-rondo_target': 'template'}) do
           render_association(association, f, new_object, html_options)
