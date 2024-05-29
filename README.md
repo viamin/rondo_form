@@ -10,7 +10,7 @@ Install the gem and add to the application's Gemfile by executing:
 
 Or inside the Gemfile add the following
 
-    $ gem 'rondo_form', '~> 0.2.5'
+    $ gem 'rondo_form', '~> 0.2.6'
 
 Run the installation task:
 
@@ -76,6 +76,18 @@ In your `_task_fields` partial:
   <%= link_to_remove_association "Remove Task", f %>
 </div>
 ```
+
+### Controller
+
+Using projects example, in your controller ProjectsController, your params method should look like:
+``` ruby
+def project_params
+  params.require(:project).permit(:name, :description, tasks_attributes: [:description, :done, :_destroy, :id])
+end
+```
+
+params `:_destroy` allow to delete tasks and `:id` allow to update tasks on update action
+
 
 _Convention_:
 
